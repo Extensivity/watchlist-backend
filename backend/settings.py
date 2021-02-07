@@ -31,6 +31,13 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # Native Apps
+    'api'
+    'api.shows',
+
+    # Third Party Apps
+    
+    # Django Builtin Apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
