@@ -2,6 +2,8 @@
   "files.exclude": {
     "**/.vscode": true,
     "**/.venv": true,
+    "**/__pycache__": true,
     "**/*.lock": true
-  }
+  },
+  "python.pythonPath": ".venv/bin/python"
 }
