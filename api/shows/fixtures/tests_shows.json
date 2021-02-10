@@ -1,0 +1,100 @@
+[
+{
+  "model": "shows.show",
+  "pk": 1,
+  "fields": {
+    "name": "Show 1"
+  }
+},
+{
+  "model": "shows.show",
+  "pk": 2,
+  "fields": {
+    "name": "Show 2"
+  }
+},
+{
+  "model": "shows.show",
+  "pk": 3,
+  "fields": {
+    "name": "Show 3"
+  }
+},
+{
+  "model": "shows.season",
+  "pk": 1,
+  "fields": {
+    "name": "Season 1",
+    "show": 1,
+    "order": 1
+  }
+},
+{
+  "model": "shows.season",
+  "pk": 2,
+  "fields": {
+    "name": "Season 2",
+    "show": 2,
+    "order": 1
+  }
+},
+{
+  "model": "shows.season",
+  "pk": 3,
+  "fields": {
+    "name": "Season 3",
+    "show": 3,
+    "order": 1
+  }
+},
+{
+  "model": "shows.episode",
+  "pk": 1,
+  "fields": {
+    "name": "Episode 1.1",
+    "season": 1,
+    "order": 1,
+    "seen": true
+  }
+},
+{
+  "model": "shows.episode",
+  "pk": 2,
+  "fields": {
+    "name": "Episode 1.2",
+    "season": 1,
+    "order": 2,
+    "seen": true
+  }
+},
+{
+  "model": "shows.episode",
+  "pk": 3,
+  "fields": {
+    "name": "Episode 2.1",
+    "season": 2,
+    "order": 1,
+    "seen": false
+  }
+},
+{
+  "model": "shows.episode",
+  "pk": 4,
+  "fields": {
+    "name": "Episode 3.1",
+    "season": 3,
+    "order": 1,
+    "seen": true
+  }
+},
+{
+  "model": "shows.episode",
+  "pk": 5,
+  "fields": {
+    "name": "Episode 3.2",
+    "season": 3,
+    "order": 2,
+    "seen": false
+  }
+}
+]

@@ -32,10 +32,11 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     # Native Apps
-    'api'
+    'api',
     'api.shows',
 
     # Third Party Apps
+    'graphene_django',
     
     # Django Builtin Apps
     'django.contrib.admin',
