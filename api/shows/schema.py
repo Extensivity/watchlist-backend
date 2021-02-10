@@ -1,53 +1,17 @@
 import graphene
-from graphene_django import types
 from django.db.models import Q
-from api.shows import models
-
-
-class ShowType(types.DjangoObjectType):
-    class Meta:
-        model = models.Show
-        fields = '__all__'
-    
-    class SearchType(graphene.InputObjectType):
-        class Meta:
-            name = "ShowSearchType"
-
-        name__startswith = graphene.String(name="name_startswith")
-        name__endswith = graphene.String(name="name_endswith")
-        name__icontains = graphene.String(name="name_icontains")
-        seen__all = graphene.Boolean(name="seen_all")
-
-
-class SeasonType(types.DjangoObjectType):
-    class Meta:
-        model = models.Season
-        fields = '__all__'
-    
-    class SearchType(ShowType.SearchType):
-        class Meta:
-            name = "SeasonSearchType"
-
-
-class EpisodeType(types.DjangoObjectType):
-    class Meta:
-        model = models.Episode
-        fields = '__all__'
-    
-    class SearchType(ShowType.SearchType):
-        class Meta:
-            name = "EpisodeSearchType"
-        
-        seen__all = graphene.Boolean(name="seen")
+from api.shows import (
+    types, mutations, models
+)
 
 
 class Query(graphene.ObjectType):
-    show = graphene.Field(ShowType, id=graphene.Int(required=True))
-    shows = graphene.List(ShowType, search=ShowType.SearchType())
-    season = graphene.Field(SeasonType, id=graphene.Int(required=True))
-    seasons = graphene.List(SeasonType, search=SeasonType.SearchType())
-    episode = graphene.Field(EpisodeType, id=graphene.Int(required=True))
-    episodes = graphene.List(EpisodeType, search=EpisodeType.SearchType())
+    show = graphene.Field(types.ShowType, id=graphene.Int(required=True))
+    shows = graphene.List(types.ShowType, search=types.ShowType.SearchType())
+    season = graphene.Field(types.SeasonType, id=graphene.Int(required=True))
+    seasons = graphene.List(types.SeasonType, search=types.SeasonType.SearchType())
+    episode = graphene.Field(types.EpisodeType, id=graphene.Int(required=True))
+    episodes = graphene.List(types.EpisodeType, search=types.EpisodeType.SearchType())
 
     def resolve_shows(self, context, search={}):
         exclude = Q()
@@ -82,4 +46,15 @@ class Query(graphene.ObjectType):
 
     def resolve_episode(self, context, id=None):
         return models.Episode.objects.get(pk=id)
-        
+
+
+class Mutation(graphene.ObjectType):
+    create_show = mutations.ShowMutations.Create.Field()
+    update_show = mutations.ShowMutations.Update.Field()
+    delete_show = mutations.ShowMutations.Delete.Field()
+    create_season = mutations.SeasonMutations.Create.Field()
+    update_season = mutations.SeasonMutations.Update.Field()
+    delete_season = mutations.SeasonMutations.Delete.Field()
+    create_episode = mutations.EpisodeMutations.Create.Field()
+    update_episode = mutations.EpisodeMutations.Update.Field()
+    delete_episode = mutations.EpisodeMutations.Delete.Field()
