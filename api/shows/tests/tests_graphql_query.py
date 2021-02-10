@@ -1,10 +1,5 @@
-import json
-from graphene_django.utils.testing import GraphQLTestCase
+from .utils import TestCase
 
-
-class TestCase(GraphQLTestCase):
-  GRAPHQL_URL = '/api/graphql'
-  fixtures = ['tests_shows.json']
 
 class ShowGraphQLTestCase(TestCase):
   def test_basic_get_all(self):
@@ -18,7 +13,7 @@ class ShowGraphQLTestCase(TestCase):
       }
       '''
     )
-    content = json.loads(response.content)
+    content = self.get_content(response)
     expecting = [
       {'id': '1', 'name': 'Show 1'},
       {'id': '2', 'name': 'Show 2'},
@@ -40,7 +35,7 @@ class ShowGraphQLTestCase(TestCase):
       variables={'pk': "1"}
     )
 
-    content = json.loads(response.content)
+    content = self.get_content(response)
     expecting = {'name': 'Show 1'}
 
     self.assertResponseNoErrors(response)
@@ -66,7 +61,7 @@ class ShowGraphQLTestCase(TestCase):
       }
     )
 
-    content = json.loads(response.content)
+    content = self.get_content(response)
     expecting = [{'name': 'Show 3'}]
 
     self.assertResponseNoErrors(response)
@@ -86,7 +81,7 @@ class ShowGraphQLTestCase(TestCase):
       variables={'seen': True}
     )
     
-    content = json.loads(response.content)
+    content = self.get_content(response)
     expecting = [{'name': 'Show 1'}]
 
     self.assertResponseNoErrors(response)
@@ -106,7 +101,7 @@ class ShowGraphQLTestCase(TestCase):
       variables={'seen': False}
     )
     
-    content = json.loads(response.content)
+    content = self.get_content(response)
     expecting = [
       {'name': 'Show 2'},
       {'name': 'Show 3'}
@@ -127,7 +122,7 @@ class SeasonGraphQLTestCase(TestCase):
       }
       '''
     )
-    content = json.loads(response.content)
+    content = self.get_content(response)
     expecting = [
       {'id': '1', 'name': 'Season 1'},
       {'id': '2', 'name': 'Season 2'},
@@ -149,7 +144,7 @@ class SeasonGraphQLTestCase(TestCase):
       variables={'pk': "1"}
     )
 
-    content = json.loads(response.content)
+    content = self.get_content(response)
     expecting = {'name': 'Season 1'}
 
     self.assertResponseNoErrors(response)
@@ -175,7 +170,7 @@ class SeasonGraphQLTestCase(TestCase):
       }
     )
 
-    content = json.loads(response.content)
+    content = self.get_content(response)
     expecting = [{'name': 'Season 3'}]
 
     self.assertResponseNoErrors(response)
@@ -195,7 +190,7 @@ class SeasonGraphQLTestCase(TestCase):
       variables={'seen': True}
     )
     
-    content = json.loads(response.content)
+    content = self.get_content(response)
     expecting = [{'name': 'Season 1'}]
 
     self.assertResponseNoErrors(response)
@@ -215,7 +210,7 @@ class SeasonGraphQLTestCase(TestCase):
       variables={'seen': False}
     )
     
-    content = json.loads(response.content)
+    content = self.get_content(response)
     expecting = [
       {'name': 'Season 2'},
       {'name': 'Season 3'}
@@ -236,7 +231,7 @@ class EpisodeGraphQLTestCase(TestCase):
       }
       '''
     )
-    content = json.loads(response.content)
+    content = self.get_content(response)
     expecting = [
       {'id': '1', 'name': 'Episode 1.1'},
       {'id': '2', 'name': 'Episode 1.2'},
@@ -260,7 +255,7 @@ class EpisodeGraphQLTestCase(TestCase):
       variables={'pk': "1"}
     )
 
-    content = json.loads(response.content)
+    content = self.get_content(response)
     expecting = {'name': 'Episode 1.1'}
 
     self.assertResponseNoErrors(response)
@@ -286,7 +281,7 @@ class EpisodeGraphQLTestCase(TestCase):
       }
     )
 
-    content = json.loads(response.content)
+    content = self.get_content(response)
     expecting = [{'name': 'Episode 3.2'}]
 
     self.assertResponseNoErrors(response)
@@ -306,7 +301,7 @@ class EpisodeGraphQLTestCase(TestCase):
       variables={'seen': True}
     )
     
-    content = json.loads(response.content)
+    content = self.get_content(response)
     expecting = [
       {'name': 'Episode 1.1'},
       {'name': 'Episode 1.2'},
@@ -330,7 +325,7 @@ class EpisodeGraphQLTestCase(TestCase):
       variables={'seen': False}
     )
     
-    content = json.loads(response.content)
+    content = self.get_content(response)
     expecting = [
       {'name': 'Episode 2.1'},
       {'name': 'Episode 3.2'}
